@@ -27,6 +27,7 @@ SOFTWARE.
 
 // #define TC_MEM_LEAK_FINDER
 
+#if defined TC_MEM_LEAK_FINDER
 typedef struct tc_allocation {
 	const char* source_file;
 	int line_number;
@@ -41,6 +42,7 @@ typedef struct tc_allocations {
 } tc_allocations;
 
 tc_allocations g_allocations;
+#endif
 
 void tc_alloc_init()
 {
