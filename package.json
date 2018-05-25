@@ -6,7 +6,7 @@
   "keywords": ["libc"],
   "license": "MIT",
   "src": [
-      "src/include/tiny_libc/tiny_libc.h",
+      "src/include/tiny-libc/tiny_libc.h",
       "src/lib/tiny_libc.c"
   ]
 }

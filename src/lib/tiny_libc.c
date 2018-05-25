@@ -23,7 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 */
-#include <tiny_libc/tiny_libc.h>
+#include <tiny-libc/tiny_libc.h>
 
 // #define TC_MEM_LEAK_FINDER
 
