@@ -1,0 +1,12 @@
+{
+  "name": "tiny-libc",
+  "version": "0.0.1",
+  "repo": "piot/tiny-libc",
+  "description": "Simplistic tiny libc",
+  "keywords": ["libc"],
+  "license": "MIT",
+  "src": [
+      "src/include/tiny_libc/tiny_libc.h",
+      "src/lib/tiny_libc.c"
+  ]
+}
