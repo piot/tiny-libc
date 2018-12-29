@@ -120,6 +120,10 @@ void* tc_malloc_debug(size_t size, const char* source_file, int line_number)
 		allocation->source_file = source_file;
 		allocation->line_number = line_number;
 	}
+#else
+    (void) source_file;
+    (void) line_number;
+
 #endif
 	return p;
 }
@@ -139,6 +143,10 @@ void tc_free_debug(void* p, const char* source_file, int line_number)
 		allocation->line_number = 0;
 		allocation->size = 0;
 	}
+#else
+    (void) source_file;
+    (void) line_number;
+
 #endif
 	free(p);
 }
