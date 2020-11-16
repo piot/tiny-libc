@@ -49,7 +49,7 @@ void tc_free_debug(void* p, const char* source_file, int line_number);
 
 #define tc_free(p) tc_free_debug(p, __FILE__, __LINE__)
 
-#define tc_memcpy_type(T, dest, source, N) (*T) memcpy(dest, source, (N) * sizeof(T))
+#define tc_memcpy_type(T, dest, source, N) memcpy(dest, source, (N) * sizeof(T))
 #define tc_memcpy_type_n(dest, source, N) memcpy((void*)dest, source, (N) * sizeof(*dest))
 #define tc_memmove_octets memmove
 #define tc_memmove_type(T, dest, source, N) memmove(dest, source, (N) * sizeof(T))
