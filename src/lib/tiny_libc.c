@@ -128,6 +128,15 @@ void* tc_malloc_debug(size_t size, const char* source_file, int line_number)
 	return p;
 }
 
+char *tc_str_dup(const char *str) {
+    size_t size = tc_strlen(str);
+    char *mem = tc_malloc_type_count(char, size + 1);
+
+    tc_strncpy(mem, size + 1, str, size);
+    mem[size] = 0;
+    return mem;
+}
+
 void tc_free_debug(void* p, const char* source_file, int line_number)
 {
 #if defined TC_MEM_LEAK_FINDER
