@@ -121,20 +121,21 @@ void* tc_malloc_debug(size_t size, const char* source_file, int line_number)
 		allocation->line_number = line_number;
 	}
 #else
-    (void) source_file;
-    (void) line_number;
+	(void) source_file;
+	(void) line_number;
 
 #endif
 	return p;
 }
 
-char *tc_str_dup(const char *str) {
-    size_t size = tc_strlen(str);
-    char *mem = tc_malloc_type_count(char, size + 1);
+char* tc_str_dup(const char* str)
+{
+	size_t size = tc_strlen(str);
+	char* mem = tc_malloc_type_count(char, size + 1);
 
-    tc_strncpy(mem, size + 1, str, size);
-    mem[size] = 0;
-    return mem;
+	tc_strncpy(mem, size + 1, str, size);
+	mem[size] = 0;
+	return mem;
 }
 
 void tc_free_debug(void* p, const char* source_file, int line_number)
@@ -153,8 +154,8 @@ void tc_free_debug(void* p, const char* source_file, int line_number)
 		allocation->size = 0;
 	}
 #else
-    (void) source_file;
-    (void) line_number;
+	(void) source_file;
+	(void) line_number;
 
 #endif
 	free(p);

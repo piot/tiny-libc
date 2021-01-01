@@ -50,7 +50,7 @@ void tc_free_debug(void* p, const char* source_file, int line_number);
 #define tc_free(p) tc_free_debug(p, __FILE__, __LINE__)
 
 #define tc_memcpy_type(T, dest, source, N) memcpy(dest, source, (N) * sizeof(T))
-#define tc_memcpy_type_n(dest, source, N) memcpy((void*)dest, source, (N) * sizeof(*dest))
+#define tc_memcpy_type_n(dest, source, N) memcpy((void*) dest, source, (N) * sizeof(*dest))
 #define tc_memmove_octets memmove
 #define tc_memmove_type(T, dest, source, N) memmove(dest, source, (N) * sizeof(T))
 
@@ -60,6 +60,7 @@ void tc_free_debug(void* p, const char* source_file, int line_number);
 #define tc_memset_type(T, V) memset(T, V, sizeof(*T))
 #define tc_memset_type_n(T, V, N) memset(T, V, sizeof(*T) * (N))
 #define tc_mem_clear_type_n(T, N) tc_memset_type_n(T, 0, N);
+#define tc_mem_clear_type_array_n(T, N) memset(T, 0, sizeof(T) * N);
 #define tc_mem_clear_type(T) tc_memset_type(T, 0);
 #define tc_mem_clear(D, N) memset(D, 0, N)
 
