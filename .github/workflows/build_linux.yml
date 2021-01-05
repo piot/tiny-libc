@@ -1,0 +1,34 @@
+name: build linux
+on: [push]
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v1.4
+        with:
+          cmake-version: "3.18.x"
+
+      - name: Force clang for cmake
+        run: export CC=/usr/bin/clang
+
+      - name: Use cmake
+        run: cmake --version
+
+      - name: build
+        run: cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON .
+        working-directory: src/
+
+      - name: make
+        run: make
+        working-directory: src/
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Tiny Libc Linux Library
+          path: |
+            src/lib/libtiny_libc.a
