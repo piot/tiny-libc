@@ -21,6 +21,7 @@ void tc_alloc_reset(void);
 
 void* tc_malloc_debug(size_t size, const char* source_file, int line_number);
 void tc_free_debug(void* p, const char* source_file, int line_number);
+int tc_modulo(int a, int b);
 
 #define tc_malloc(size) tc_malloc_debug(size, __FILE__, __LINE__)
 #define tc_malloc_type(T) (T*) tc_malloc_debug(sizeof(T), __FILE__, __LINE__)
