@@ -22,6 +22,9 @@ void tc_alloc_reset(void);
 void* tc_malloc_debug(size_t size, const char* source_file, int line_number);
 void tc_free_debug(void* p, const char* source_file, int line_number);
 int tc_modulo(int a, int b);
+int tc_sign(int a);
+int tc_min(int a, int b);
+int tc_max(int a, int b);
 
 #define tc_malloc(size) tc_malloc_debug(size, __FILE__, __LINE__)
 #define tc_malloc_type(T) (T*) tc_malloc_debug(sizeof(T), __FILE__, __LINE__)
@@ -39,8 +42,12 @@ int tc_modulo(int a, int b);
 #define tc_memcmp memcmp
 #define tc_memset_type(T, V) memset(T, V, sizeof(*T))
 #define tc_memset_type_n(T, V, N) memset(T, V, sizeof(*T) * (N))
-#define tc_mem_clear_type_n(T, N) tc_memset_type_n(T, 0, N);
-#define tc_mem_clear_type_array_n(T, N) memset(T, 0, sizeof(T) * N);
+#define tc_mem_clear_type_n(T, N) tc_memset_type_n(T, 0, N)
+
+//#define tc_mem_clear_type_array_n(T, N) memset(T, 0, sizeof(T) * N);
+
+#define tc_mem_clear_type_array(P, N) memset( P, 0, sizeof(P[0]) * (N) )
+
 #define tc_mem_clear_type(T) tc_memset_type(T, 0);
 #define tc_mem_clear(D, N) memset(D, 0, N)
 

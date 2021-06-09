@@ -144,3 +144,17 @@ int inline tc_modulo(int a, int b)
 {
     return (a % b + b) % b;
 }
+
+
+int inline tc_sign(int a) {
+    return (0 < a) - (a < 0);
+}
+
+
+int tc_min(int a, int b) {
+    return a < b ? a : b;
+}
+
+int tc_max(int a, int b) {
+    return a > b ? a : b;
+}
