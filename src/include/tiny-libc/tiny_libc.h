@@ -7,8 +7,13 @@
 
 #include <memory.h>
 
+#if defined TORNADO_OS_WINDOWS
+#include <WinSock2.h>
+#include <Windows.h>
+#else
 #include <arpa/inet.h>
 #include <stdlib.h>
+#endif
 
 #if defined TORNADO_OS_IOS
 #include <string.h>
@@ -66,7 +71,7 @@ int tc_max(int a, int b);
 #define tc_fopen fopen_s
 #define tc_fread fread
 #define tc_fclose fclose
-#define tc_strncat strncat_s
+#define tc_strncat strncat
 #define tc_strlen strlen
 
 #else
@@ -97,5 +102,6 @@ int tc_max(int a, int b);
 
 #define tc_fmod fmod
 #define tc_pow pow
+
 
 #endif

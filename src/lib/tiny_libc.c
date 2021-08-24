@@ -140,13 +140,14 @@ void tc_free_debug(void* p, const char* source_file, int line_number)
     free(p);
 }
 
-int inline tc_modulo(int a, int b)
+int tc_modulo(int a, int b)
 {
     return (a % b + b) % b;
 }
 
 
-int inline tc_sign(int a) {
+int tc_sign(int a)
+{
     return (0 < a) - (a < 0);
 }
 
