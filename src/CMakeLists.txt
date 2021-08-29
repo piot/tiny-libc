@@ -28,6 +28,10 @@ if (APPLE)
 elseif (UNIX)
         add_compile_definitions(TORNADO_OS_LINUX)
         set(OS_LINUX 1)
+elseif (WIN32)
+        add_compile_definitions(TORNADO_OS_WINDOWS)
+        set(OS_WINDOWS 1)
+
 endif()
 
 if (isDebug)
