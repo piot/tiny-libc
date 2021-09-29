@@ -36,7 +36,7 @@ int tc_max(int a, int b);
 #define tc_malloc_type_count(T, N) (T*) tc_malloc_debug((N) * sizeof(T), __FILE__, __LINE__)
 
 #define tc_free(p) tc_free_debug(p, __FILE__, __LINE__)
-
+#define tc_free_set_zero(p) tc_free_debug(p, __FILE__, __LINE__); p = 0
 #define tc_memcpy_type(T, dest, source, N) memcpy(dest, source, (N) * sizeof(T))
 #define tc_memcpy_type_n(dest, source, N) memcpy((void*) dest, source, (N) * sizeof(*dest))
 #define tc_memmove_octets memmove
@@ -47,6 +47,7 @@ int tc_max(int a, int b);
 #define tc_memcmp memcmp
 #define tc_memset_type(T, V) memset(T, V, sizeof(*T))
 #define tc_memset_type_n(T, V, N) memset(T, V, sizeof(*T) * (N))
+#define tc_memset_octets(T, V, N) memset(T, V, N)
 #define tc_mem_clear_type_n(T, N) tc_memset_type_n(T, 0, N)
 
 //#define tc_mem_clear_type_array_n(T, N) memset(T, 0, sizeof(T) * N);
