@@ -23,7 +23,7 @@ typedef struct tc_allocations {
 tc_allocations g_allocations;
 #endif
 
-void tc_alloc_init()
+void tc_alloc_init(void)
 {
 #if defined TC_MEM_LEAK_FINDER
     tc_allocations* self = &g_allocations;
@@ -75,7 +75,7 @@ static tc_allocation* find_allocation_from_pointer(tc_allocations* self, void* p
 }
 #endif
 
-void tc_alloc_reset()
+void tc_alloc_reset(void)
 {
 #if defined TC_MEM_LEAK_FINDER
     tc_allocations* self = &g_allocations;
