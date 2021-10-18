@@ -50,6 +50,8 @@ int tc_max(int a, int b);
 #define tc_memset_octets(T, V, N) memset(T, V, N)
 #define tc_mem_clear_type_n(T, N) tc_memset_type_n(T, 0, N)
 
+#define tc_memchr(buf, ch, count) memchr(buf, ch, count)
+
 //#define tc_mem_clear_type_array_n(T, N) memset(T, 0, sizeof(T) * N);
 
 #define tc_mem_clear_type_array(P, N) memset( P, 0, sizeof(P[0]) * (N) )
