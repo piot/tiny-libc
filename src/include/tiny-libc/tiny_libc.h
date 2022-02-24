@@ -56,7 +56,7 @@ int tc_max(int a, int b);
 
 #define tc_mem_clear_type_array(P, N) memset( P, 0, sizeof(P[0]) * (N) )
 
-#define tc_mem_clear_type(T) tc_memset_type(T, 0);
+#define tc_mem_clear_type(T) tc_memset_type(T, 0)
 #define tc_mem_clear(D, N) memset(D, 0, N)
 
 #define tc_htonl htonl
