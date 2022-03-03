@@ -13,8 +13,8 @@
 #else
 #include <arpa/inet.h>
 #include <stdlib.h>
-#include <stdio.h> // For snprintf
 #endif
+#include <stdio.h> // For snprintf
 
 #if defined TORNADO_OS_IOS
 #include <string.h>
