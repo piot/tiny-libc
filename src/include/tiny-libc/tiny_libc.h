@@ -20,6 +20,12 @@
 #include <string.h>
 #endif
 
+#if _MSC_VER
+#define TC_FORCE_INLINE __forceinline
+#else
+#define TC_FORCE_INLINE __attribute__((__always_inline__))
+#endif
+
 char* tc_str_dup(const char* str);
 
 void tc_alloc_init(void);
