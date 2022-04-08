@@ -99,11 +99,20 @@ void* tc_malloc_debug(size_t size, const char* source_file, int line_number)
         allocation->source_file = source_file;
         allocation->line_number = line_number;
     }
+
 #else
     (void) source_file;
     (void) line_number;
 
 #endif
+    return p;
+}
+
+void* tc_calloc_debug(size_t size, const char* source_file, int line_number)
+{
+    void* p = tc_malloc_debug(size, source_file, line_number);
+    tc_mem_clear(p, size);
+
     return p;
 }
 

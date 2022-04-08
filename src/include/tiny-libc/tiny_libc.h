@@ -32,6 +32,7 @@ void tc_alloc_init(void);
 void tc_alloc_reset(void);
 
 void* tc_malloc_debug(size_t size, const char* source_file, int line_number);
+void* tc_calloc_debug(size_t size, const char* source_file, int line_number);
 void tc_free_debug(void* p, const char* source_file, int line_number);
 int tc_modulo(int a, int b);
 int tc_sign(int a);
@@ -41,7 +42,7 @@ int tc_max(int a, int b);
 #define tc_malloc(size) tc_malloc_debug(size, __FILE__, __LINE__)
 #define tc_malloc_type(T) (T*) tc_malloc_debug(sizeof(T), __FILE__, __LINE__)
 #define tc_malloc_type_count(T, N) (T*) tc_malloc_debug((N) * sizeof(T), __FILE__, __LINE__)
-#define tc_calloc(itemCount, itemSize) calloc(itemCount, itemSize)
+#define tc_calloc(itemCount, itemSize)  tc_calloc_debug((itemCount)*(itemSize), __FILE__, __LINE__)
 
 #define tc_free(p) tc_free_debug(p, __FILE__, __LINE__)
 #define tc_free_set_zero(p) tc_free_debug(p, __FILE__, __LINE__); p = 0
