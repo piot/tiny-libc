@@ -41,6 +41,7 @@ int tc_max(int a, int b);
 #define tc_malloc(size) tc_malloc_debug(size, __FILE__, __LINE__)
 #define tc_malloc_type(T) (T*) tc_malloc_debug(sizeof(T), __FILE__, __LINE__)
 #define tc_malloc_type_count(T, N) (T*) tc_malloc_debug((N) * sizeof(T), __FILE__, __LINE__)
+#define tc_calloc(itemCount, itemSize) calloc(itemCount, itemSize)
 
 #define tc_free(p) tc_free_debug(p, __FILE__, __LINE__)
 #define tc_free_set_zero(p) tc_free_debug(p, __FILE__, __LINE__); p = 0
