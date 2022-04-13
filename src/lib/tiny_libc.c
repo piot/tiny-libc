@@ -101,8 +101,8 @@ void* tc_malloc_debug(size_t size, const char* source_file, int line_number)
     }
 
 #else
-    (void) source_file;
-    (void) line_number;
+    (void)source_file;
+    (void)line_number;
 
 #endif
     return p;
@@ -142,8 +142,8 @@ void tc_free_debug(void* p, const char* source_file, int line_number)
         allocation->size = 0;
     }
 #else
-    (void) source_file;
-    (void) line_number;
+    (void)source_file;
+    (void)line_number;
 
 #endif
     free(p);
@@ -154,17 +154,17 @@ int tc_modulo(int a, int b)
     return (a % b + b) % b;
 }
 
-
 int tc_sign(int a)
 {
     return (0 < a) - (a < 0);
 }
 
-
-int tc_min(int a, int b) {
+int tc_min(int a, int b)
+{
     return a < b ? a : b;
 }
 
-int tc_max(int a, int b) {
+int tc_max(int a, int b)
+{
     return a > b ? a : b;
 }

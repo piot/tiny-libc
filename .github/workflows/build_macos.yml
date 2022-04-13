@@ -9,23 +9,30 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup cmake
-        uses: jwlawson/actions-setup-cmake@v1.4
+        uses: jwlawson/actions-setup-cmake@v1.11
         with:
-          cmake-version: "3.18.x"
+          cmake-version: "3.22.x"
 
-      - name: Use cmake
-        run: cmake --version
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.18
 
-      - name: build
-        run: cmake .
+      - name: deps fetch dependencies
+        run: go run github.com/piot/deps/src/deps@main fetch -m clone
+        env:
+          GITHUB_TOKEN: ${{secrets.DEPS_PAT}}
+
+      - name: create cmake cache
+        run: cmake -DCMAKE_BUILD_TYPE=Debug .
         working-directory: src/
 
-      - name: make
-        run: make
+      - name: build
+        run: cmake --build . --clean-first
         working-directory: src/
 
       - uses: actions/upload-artifact@v2
         with:
-          name: Tiny Libc MacOS Library
+          name: tiny-libc MacOS Library
           path: |
-            src/lib/libtiny_libc.a
+            src/libtiny_libc.a
