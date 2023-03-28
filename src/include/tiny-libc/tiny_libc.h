@@ -39,6 +39,14 @@ int tc_sign(int a);
 int tc_min(int a, int b);
 int tc_max(int a, int b);
 
+#if defined CONFIG_DEBUG
+//#define tc_safe_typedef(referencedType, definitionName) typedef struct definitionName { referencedType a; } definitionName
+#define tc_safe_typedef(referenced_type, definition_name) typedef referenced_type definition_name;
+#else
+//#define tc_safe_typedef(referencedType, definitionName) typedef struct definitionName { referencedType a; } definitionName
+#define tc_safe_typedef(referenced_type, definition_name) typedef referenced_type definition_name;
+#endif
+
 #define tc_malloc(size) tc_malloc_debug(size, __FILE__, __LINE__)
 #define tc_malloc_type(T) (T*) tc_malloc_debug(sizeof(T), __FILE__, __LINE__)
 #define tc_malloc_type_count(T, N) (T*) tc_malloc_debug((N) * sizeof(T), __FILE__, __LINE__)
