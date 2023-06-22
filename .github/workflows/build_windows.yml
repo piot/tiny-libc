@@ -1,9 +1,9 @@
-name: build mac os
+name: build Windows
 on: [push]
 jobs:
   build:
-    name: Build MacOS
-    runs-on: macos-12
+    name: Build Windows
+    runs-on: windows-2022
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -21,16 +21,11 @@ jobs:
       - name: deps fetch dependencies
         run: go run github.com/piot/deps/src/deps@main fetch -m clone
 
-      - name: create cmake cache
-        run: cmake -DCMAKE_BUILD_TYPE=Debug .
+      - name: cmake generate cache
+        run: |
+          cmake . -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE="Debug"
         working-directory: src/
 
-      - name: build
+      - name: cmake build
         run: cmake --build . --clean-first
         working-directory: src/
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: tiny-libc MacOS Library
-          path: |
-            src/libtiny_libc.a
