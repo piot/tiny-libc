@@ -20,7 +20,7 @@
 #include <string.h>
 #endif
 
-#if _MSC_VER
+#if defined _MSC_VER
 #define TC_FORCE_INLINE __forceinline
 #else
 #define TC_FORCE_INLINE __attribute__((__always_inline__))
