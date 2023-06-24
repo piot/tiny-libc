@@ -25,6 +25,8 @@ elseif(CMAKE_C_COMPILER_ID STREQUAL "MSVC")
   set(COMPILER_MSVC 1)
 endif()
 
+message("compiler: '${CMAKE_C_COMPILER_ID}' '${COMPILER_MSVC}'")
+
 set(useSanitizers ${isDebug})
 message("useSanitizers: ${useSanitizers}")
 
