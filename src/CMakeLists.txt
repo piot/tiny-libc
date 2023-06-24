@@ -3,9 +3,6 @@ project(tiny_libc C)
 
 set(CMAKE_C_STANDARD 99)
 
-set(CMAKE_C_COMPILER_NAMES clang)
-# set( CMAKE_VERBOSE_MAKEFILE on )
-
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   set(isDebug TRUE)
 else()
