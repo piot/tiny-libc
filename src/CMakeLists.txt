@@ -74,10 +74,12 @@ set_target_properties(tiny_libc PROPERTIES RUNTIME_OUTPUT_DIRECTORY
 if(COMPILER_CLANG)
   target_compile_options(
     tiny_libc
-    PRIVATE -Weverything -Werror -Wno-padded
+    PRIVATE -Weverything
+            -Werror
+            -Wno-padded
             -Wno-declaration-after-statement # must be bug in clang? shows up
                                              # even if std=c99
-  )
+            ${sanitizers})
 elseif(COMPILER_MSVC)
   target_compile_options(
     tiny_libc
@@ -109,13 +111,11 @@ if(useSanitizers)
   target_link_libraries(tiny_libc ${sanitizers})
 endif()
 
-target_compile_options(tiny_libc PRIVATE -Wall -Wno-unused-variable
-                                         ${sanitizers})
-
 if(NOT isDebug)
   message("optimize!")
-  target_compile_options(tiny_libc PRIVATE -O3) # -flto file format no
-                                                # recognized
+  target_compile_options(tiny_libc PRIVATE -O3)
 endif()
 
+if (NOT MSVC)
 target_link_libraries(tiny_libc m)
+endif()
