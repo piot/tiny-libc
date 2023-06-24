@@ -14,6 +14,17 @@ endif()
 
 message("isDebug: ${isDebug}")
 
+if(CMAKE_C_COMPILER_ID MATCHES "Clang")
+  set(COMPILER_NAME "clang")
+  set(COMPILER_CLANG 1)
+elseif(CMAKE_C_COMPILER_ID STREQUAL "GNU")
+  set(COMPILER_NAME "gcc")
+  set(COMPILER_GCC 1)
+elseif(CMAKE_C_COMPILER_ID STREQUAL "MSVC")
+  set(COMPILER_NAME "msvc")
+  set(COMPILER_MSVC 1)
+endif()
+
 set(useSanitizers ${isDebug})
 message("useSanitizers: ${useSanitizers}")
 
@@ -61,12 +72,39 @@ add_library(tiny_libc ${lib_src})
 set_target_properties(tiny_libc PROPERTIES RUNTIME_OUTPUT_DIRECTORY
                                            "${CMAKE_BINARY_DIR}/bin")
 
-target_compile_options(
-  tiny_libc
-  PRIVATE -Weverything
-          -Wno-declaration-after-statement # must be bug in clang? shows up even
-                                           # if std=c99
-          -Werror)
+if(COMPILER_CLANG)
+  target_compile_options(
+    tiny_libc
+    PRIVATE -Weverything -Werror -Wno-padded
+            -Wno-declaration-after-statement # must be bug in clang? shows up
+                                             # even if std=c99
+  )
+elseif(COMPILER_MSVC)
+  target_compile_options(
+    tiny_libc
+    PRIVATE /F
+            5000000
+            /Wall
+            /wd4668
+            /wd4820
+            /wd4100
+            /wd4710
+            /wd4711
+            /wd5945
+            /wd5105
+            /wd5045
+            /we4047
+            /we4255
+            /we4013
+            /we4020
+            /we4474
+            /we4477
+            /we4057
+            /we4101
+            /we4189) # /WX
+else()
+  target_compile_options(tiny_libc PRIVATE -Wall)
+endif()
 
 if(useSanitizers)
   target_link_libraries(tiny_libc ${sanitizers})
