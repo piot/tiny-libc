@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.16.3)
 
 set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_EXTENSIONS false)
+
+
+# --- Detect CMake build type, compiler and operating system ---
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   message("detected debug build")
@@ -22,7 +26,7 @@ elseif(CMAKE_C_COMPILER_ID STREQUAL "MSVC")
   set(COMPILER_MSVC 1)
 endif()
 
-message("detected compiler: '${CMAKE_C_COMPILER_ID}' '${COMPILER_MSVC}'")
+message("detected compiler: '${CMAKE_C_COMPILER_ID}' (${COMPILER_NAME})")
 
 set(useSanitizers false)
 
@@ -31,26 +35,35 @@ if(useSanitizers)
   set(sanitizers "-fsanitize=address")
 endif()
 
+
+# --- Library ---
+
+
+file(GLOB lib_src FOLLOW_SYMLINKS "./*.c")
+
+
+add_library(tiny-libc ${lib_src})
+
+
 if(APPLE)
-  add_compile_definitions(TORNADO_OS_MACOS)
+  target_compile_definitions(tiny-libc PRIVATE TORNADO_OS_MACOS)
   set(OS_MACOS 1)
 elseif(UNIX)
-  add_compile_definitions(TORNADO_OS_LINUX)
+  target_compile_definitions(tiny-libc PRIVATE TORNADO_OS_LINUX)
   set(OS_LINUX 1)
 elseif(WIN32)
-  add_compile_definitions(TORNADO_OS_WINDOWS)
+  target_compile_definitions(tiny-libc PRIVATE TORNADO_OS_WINDOWS)
   set(OS_WINDOWS 1)
 
 endif()
 
 if(isDebug)
-  message("Debug build detected")
-  set(CONFIGURATION_DEBUG 1)
+  message("Setting definitions based on debug")
+  target_compile_definitions(tiny-libc PRIVATE CONFIGURATION_DEBUG)
 endif()
 
 
 function(unixlike)
-  message("unixlike")
 endfunction()
 
 if(OS_LINUX)
@@ -63,11 +76,6 @@ elseif(OS_MACOS)
 endif()
 
 
-file(GLOB lib_src FOLLOW_SYMLINKS "./*.c")
-
-
-add_library(tiny-libc ${lib_src})
-
 target_include_directories(tiny-libc PUBLIC ../include)
 
 
@@ -79,6 +87,7 @@ if(COMPILER_CLANG)
             -Wno-padded # the order of the fields in struct can matter (ABI)
             -Wno-declaration-after-statement # must be bug in clang? shows up
                                              # even if std=c99
+            -Wno-unsafe-buffer-usage # unclear why it fails on clang-16
             ${sanitizers})
 elseif(COMPILER_GCC)
 target_compile_options(
