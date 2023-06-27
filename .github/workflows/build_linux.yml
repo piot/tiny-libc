@@ -8,10 +8,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: make clang-14 the default
-        run:
-          sudo update-alternatives --install /usr/bin/cc cc /usr/bin/clang-14
-          100
+      - name: Install LLVM and Clang 16
+        uses: KyleMayes/install-llvm-action@v1
+        with:
+          version: '16.0.4'
+          env: true
 
       - name: Setup cmake
         uses: jwlawson/actions-setup-cmake@v1.14
@@ -31,11 +32,11 @@ jobs:
         working-directory: src/
 
       - name: build
-        run: cmake --build . --clean-first
+        run: cmake --build . --clean-first -- VERBOSE=1
         working-directory: src/
 
       - uses: actions/upload-artifact@v2
         with:
           name: tiny-libc Linux Library
           path: |
-            src/libtiny_libc.a
+            src/lib/libtiny-libc.a
