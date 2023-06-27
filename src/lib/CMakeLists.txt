@@ -88,6 +88,7 @@ if(COMPILER_CLANG)
             -Wno-declaration-after-statement # must be bug in clang? shows up
                                              # even if std=c99
             -Wno-unsafe-buffer-usage # unclear why it fails on clang-16
+            -Wno-unknown-warning-option # support newer clang versions, e.g. clang-16
             ${sanitizers})
 elseif(COMPILER_GCC)
 target_compile_options(
