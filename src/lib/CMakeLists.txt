@@ -54,7 +54,6 @@ elseif(UNIX)
 elseif(WIN32)
   target_compile_definitions(tiny-libc PRIVATE TORNADO_OS_WINDOWS)
   set(OS_WINDOWS 1)
-
 endif()
 
 if(isDebug)
@@ -63,16 +62,12 @@ if(isDebug)
 endif()
 
 
-function(unixlike)
-endfunction()
-
 if(OS_LINUX)
   message("Linux Detected!")
-  unixlike()
-
 elseif(OS_MACOS)
   message("MacOS detected!")
-  unixlike()
+elseif(OS_WINDOWS)
+  message("Windows detected!")
 endif()
 
 target_include_directories(tiny-libc PUBLIC ../include)
@@ -87,7 +82,8 @@ if(COMPILER_CLANG)
                                              # even if std=c99
             -Wno-unsafe-buffer-usage # unclear why it fails on clang-16
             -Wno-unknown-warning-option # support newer clang versions, e.g. clang-16
-            -Wno-disabled-macro-expansion
+            -Wno-disabled-macro-expansion # bug in emscripten compiler?
+            -Wno-poison-system-directories # might be bug in emscripten compiler?
             ${sanitizers})
 elseif(COMPILER_GCC)
 target_compile_options(
@@ -101,26 +97,14 @@ target_compile_options(
 elseif(COMPILER_MSVC)
   target_compile_options(
     tiny-libc
-    PRIVATE /F
-            5000000
-            /Wall
-            /wd4668
-            /wd4820
-            /wd4100
-            /wd4710
-            /wd4711
-            /wd5945
-            /wd5105
-            /wd5045
-            /we4047
-            /we4255
-            /we4013
-            /we4020
-            /we4474
-            /we4477
-            /we4057
-            /we4101
-            /we4189) # /WX
+    PRIVATE /Wall
+            /WX
+            # /F 5000000 # stack size
+            /wd4820 # bytes padding added after data member
+            /wd4668 # bug in winioctl.h (is not defined as a preprocessor macro, replacing with '0' for '#if/#elif')
+            /wd5045 # Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
+            /wd4005 # Bug in ntstatus.h (macro redefinition)
+          )
 else()
   target_compile_options(tiny-libc PRIVATE -Wall)
 endif()
@@ -134,8 +118,4 @@ endif()
 if(NOT isDebug)
   message("optimize!")
   target_compile_options(tiny-libc PRIVATE -O3)
-endif()
-
-if (NOT MSVC)
-target_link_libraries(tiny-libc PRIVATE m)
 endif()
