@@ -33,4 +33,4 @@ jobs:
         with:
           name: tiny-libc MacOS Library
           path: |
-            src/libtiny_libc.a
+            src/libtiny-libc.a
