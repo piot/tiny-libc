@@ -89,6 +89,7 @@ function(set_tornado targetName)
               /wd5045 # Compiler will insert Spectre mitigation for memory load
                       # if /Qspectre switch specified
               /wd4005 # Bug in ntstatus.h (macro redefinition)
+              /wd4711 # selected for automatic inline expansion (seems like not much control over what it selects as inline)
     )
   else()
     target_compile_options(${targetName} PRIVATE -Wall)
