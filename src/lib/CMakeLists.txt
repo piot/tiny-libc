@@ -9,6 +9,6 @@ set_tornado(tiny-libc)
 
 target_include_directories(tiny-libc PUBLIC ../../include)
 install(TARGETS tiny-libc LIBRARY DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-install(DIRECTORY include/
+install(DIRECTORY ../../include
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
