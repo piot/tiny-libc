@@ -7,5 +7,5 @@ add_library(tiny-libc STATIC
 include(Tornado.cmake)
 set_tornado(tiny-libc)
 
-target_include_directories(tiny-libc PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_include_directories(tiny-libc PUBLIC ../../include)
 install(TARGETS tiny-libc LIBRARY DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
