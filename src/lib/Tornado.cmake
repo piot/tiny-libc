@@ -94,7 +94,7 @@ function(set_tornado targetName)
     target_compile_options(${targetName} PRIVATE -Wall)
   endif()
 
-  if(NOT isDebug)
+  if(NOT isDebug AND NOT COMPILER_MSVC)
     message("optimize!")
     target_compile_options(${targetName} PRIVATE -O3)
   endif()
