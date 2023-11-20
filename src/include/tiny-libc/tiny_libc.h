@@ -83,6 +83,8 @@ int tc_max(int a, int b);
 #define tc_ntohl ntohl
 #define tc_ntohs ntohs
 
+#define tc_str_to_uint64(str,base) strtoull(str, 0, base)
+
 #if defined WIN32
 // #pragma warning( disable : 4100 )
 
